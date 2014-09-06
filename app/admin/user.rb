@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
 
-  #actions :all, :except => [:new]
+  actions :all, :except => [:new]
   menu priority: 3
   batch_action :destroy do |selection|
     User.find(selection).each do |user|
@@ -18,8 +18,6 @@ ActiveAdmin.register User do
     column :email
     column :name
     column :gender
-    
-    #actions
     column "Actions" do |video|  
       a do                                                         
         link_to 'View' , admin_user_path(video)
@@ -56,8 +54,7 @@ ActiveAdmin.register User do
 
   controller do
     def permitted_params
-      params.permit user: [:email, :password, :password_confirmation, :name, :gender,
-                           :age]
+      params.permit user: [:email, :password, :password_confirmation, :name, :gender, :age]
     end
   end
 
