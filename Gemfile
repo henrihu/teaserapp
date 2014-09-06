@@ -30,6 +30,7 @@ gem 'quiet_assets'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem 'rails_12factor'
+gem 'select2-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

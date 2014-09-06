@@ -9,6 +9,17 @@ ActiveAdmin.register Video do
 
   filter :name
   filter :genre
+
+
+  form do |f|
+    f.inputs "Video" do
+      f.input :name
+      f.input :genre_id, as: :select, :collection => Genre.all.map{ |genre| [genre.name, genre.id] }, :prompt => 'Select one'
+      f.input :year, :as => :select, :collection => (1950..Time.now.year).to_a
+      f.input :link
+    end
+    f.actions
+  end
   
   index :download_links => false do
     selectable_column
