@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
 
-  actions :all, :except => [:new]
+  #actions :all, :except => [:new]
   menu priority: 3
   batch_action :destroy do |selection|
     User.find(selection).each do |user|
