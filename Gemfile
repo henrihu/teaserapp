@@ -29,10 +29,11 @@ gem 'spring',        group: :development
 gem 'quiet_assets'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
-gem 'rails_12factor'
+gem 'rails_12factor',        group: :production
 gem 'select2-rails'
+gem 'thin'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 # gem 'unicorn'
