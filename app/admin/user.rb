@@ -35,7 +35,7 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs "User" do 
       f.input :name
-      f.input :email#, :input_html => { :disabled => true } 
+      f.input :email, :input_html => { :disabled => true } 
       f.input :gender, as: :radio, collection: ['Male','Female']
       f.input :age, as: :string
     end
