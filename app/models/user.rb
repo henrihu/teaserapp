@@ -7,4 +7,11 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, 
 						format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i , 
 						message: "Please enter valid email address."}
+  has_many :users_videos
+  has_many :videos, through: :users_videos
+  def send_token
+    self.update_attribute(:reset_password_token, SecureRandom.urlsafe_base64+Time.now.zone)
+    UserMailer.reset_password_mail(self).deliver
+  end 
+
 end

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 		if @user
 			@user.update_attributes(permitted_params)
     else
+      params[:password_confirmation] = params[:password] = Random.new.bytes(8).bytes.join[0,8]
       @user = User.create(permitted_params) 
 		end	
 		render :json => {
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
 	  render :json => {
     	                :response_code => 200,
     	                :response_message => "Genres has been successfully fetched.",
-                      :genres => Genre.all
+                      :genres => Genre.all.as_json(only: [:id, :name])
         	          }
                  
 	end	
@@ -44,7 +45,8 @@ class UsersController < ApplicationController
 	def genre_video
 		@genre = Genre.find(params[:genre_id])
 		videos = Array.new
-		@genre.videos.each do |video|
+    @videos = @genre.videos.limit(10).order('RANDOM()') - @user.videos
+		 @videos.each do |video|
 			videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genre.name)
 		end	
 		if @genre
@@ -80,7 +82,7 @@ class UsersController < ApplicationController
 
 	def random_video
 		videos = Array.new
-		@videos = Video.limit(10).order('RANDOM()')
+		@videos = Video.order("RANDOM()").limit(10) - @user.videos
 		@videos.each do |video|
 			videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genre.name)
 		end
@@ -116,7 +118,7 @@ class UsersController < ApplicationController
 	def get_starred_videos
 		if @user.payment_status == true
 			@videos = Array.new 
-			videos = Video.find(@user.favorites.pluck(:video_id))
+			videos = Video.find(@user.favorites.pluck(:video_id)) - @user.videos
 			videos.each do |video|
 				@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genre.name)
 			end	
@@ -134,6 +136,22 @@ class UsersController < ApplicationController
     end                  
 			
 	end	
+
+  def seen_video
+    @video = Video.find(params[:video_id])
+    if @video
+      @user.users_videos.create(video_id: @video.id)
+      render :json => { 
+                        :response_code => 200,
+                        :response_message => "You've seen this video."
+                      }
+    else
+      render :json => { 
+                        :response_code => 500,
+                        :response_message => "Video doesn't exist."
+                      }
+    end  
+  end  
 
 
   private
