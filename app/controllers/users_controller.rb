@@ -8,7 +8,8 @@ class UsersController < ApplicationController
         render :json => {
         	                :response_code => 200,
         	                :response_message => "You've signed up successfully.",
-                          :user_id => @user.id
+                          :user_id => @user.id,
+                          :payment_status => @user.payment_status
         	              }
     else
     	  render :json => {  
@@ -29,7 +30,8 @@ class UsersController < ApplicationController
 		render :json => {
     	                :response_code => 200,
     	                :response_message => "You've logged in successfully.",
-                      :user_id => @user.id
+                      :user_id => @user.id,
+                      :payment_status => @user.payment_status
         	          }
 	end	
 
@@ -44,16 +46,13 @@ class UsersController < ApplicationController
 
 	def genre_video
 		@genre = Genre.find(params[:genre_id])
-		videos = Array.new
-    @videos = @genre.videos.limit(10).order('RANDOM()') - @user.videos
-		 @videos.each do |video|
-			videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genre.name)
-		end	
-		if @genre
+		@video = @genre.videos.order('RANDOM()').first #- @user.videos
+    wideo = @video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => @video.genre.name )
+		if wideo
 			render :json => {
     	                :response_code => 200,
     	                :response_message => "Genres has been successfully fetched.",
-                      :videos => videos
+                      :videos => wideo
         	            }
     else
      render :json => {
@@ -81,16 +80,13 @@ class UsersController < ApplicationController
 	end	
 
 	def random_video
-		videos = Array.new
-		@videos = Video.order("RANDOM()").limit(10) - @user.videos
-		@videos.each do |video|
-			videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genre.name)
-		end
-		unless @videos.blank?
+		video = Video.order("RANDOM()").first
+		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genre.name )
+    unless wideo.nil?
 			render :json => { 
                         :response_code => 200,
                         :response_message => "Videos has been fetched successfully.",
-                        :videos => videos
+                        :videos => wideo
                       }
 		else
 			render :json => { 
@@ -118,7 +114,7 @@ class UsersController < ApplicationController
 	def get_starred_videos
 		if @user.payment_status == true
 			@videos = Array.new 
-			videos = Video.find(@user.favorites.pluck(:video_id)) - @user.videos
+			videos = Video.find(@user.favorites.pluck(:video_id))
 			videos.each do |video|
 				@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genre.name)
 			end	
@@ -166,6 +162,6 @@ class UsersController < ApplicationController
   end
 
   def permitted_params
-    params.permit(:email, :name, :password, :password_confirmation, :age, :gender, :reset_password_token, :payment_status)
+    params.permit(:email, :name, :password, :password_confirmation, :age, :gender, :reset_password_token, :payment_status, :genre_name)
   end
 end
