@@ -49,7 +49,7 @@ class PasswordsController < ApplicationController
     end
   end 
   def permitted_params
-    params.permit(:email, :password, :reset_password_token, :reset_password_sent_at)
+    params.permit(:email, :password, :password_confirmation, :reset_password_token, :reset_password_sent_at)
   end
 	
 end

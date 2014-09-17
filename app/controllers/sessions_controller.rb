@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 	
 	def create
     @user = User.find_by_email(params[:email])
-  	if @user and @user.authenticate(params[:password])
+    if @user and @user.authenticate(params[:password])
   		render :json => {  
     	  	               :response_code => 200,
         	               :response_message => "You've signed in successfully.",
