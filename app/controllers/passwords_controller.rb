@@ -34,7 +34,7 @@ class PasswordsController < ApplicationController
                           :response_code => 400,
                           :response_message => "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."         
                        }
-    elsif @user.update_attributes(permitted_params)
+    elsif @user.update_attributes!(permitted_params)
       @user.reset_password_token = nil
       @user.save
       render :json => {
@@ -44,12 +44,12 @@ class PasswordsController < ApplicationController
     else
       render :json => {
                         :response_code => 0,
-                        :response_message => "cant change"   
+                        :response_message => "cant change #{@user.errors}"   
                       }
     end
   end 
   def permitted_params
-    params.permit(:email, :password, :password_confirmation, :reset_password_token, :reset_password_sent_at)
+    params.require(:user).permit!
   end
 	
 end
