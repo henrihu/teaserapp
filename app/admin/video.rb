@@ -14,8 +14,8 @@ ActiveAdmin.register Video do
   form do |f|
     f.inputs "Video" do
       f.input :name
-      f.input :genre_id, as: :select, :collection => Genre.all.map{ |genre| [genre.name, genre.id] }, :prompt => 'Select one'
-      f.input :year, :as => :select, :collection => (1950..Time.now.year).to_a
+      f.input :genre_ids, :label => "Genre", as: :select, multiple: true, :collection => Genre.all.map{ |genre| [genre.name, genre.id] }, :prompt => 'Select one'
+      f.input :year, :as => :select, :collection => (1900..Time.now.year).to_a
       f.input :director_name
       f.input :link
     end
@@ -42,7 +42,10 @@ ActiveAdmin.register Video do
   show do |ad|
     attributes_table do
       row :name
-      row :genre
+      row 'Genres' do |video|
+          raw(video.genres.map { |genre| link_to genre.name, admin_genre_path(genre) }.join(', '))
+      end
+
       row :director_name
       row "Link" do
         link_to ad.link, ad.link, target: '_blank'  
@@ -56,9 +59,8 @@ ActiveAdmin.register Video do
 
 
   controller do
-    def permitted_params
-      params.permit video: [:name, :year, :link, :genre_id, :director_name]
+    def permitted_params 
+      params.permit video: [:name, :year, :link, :director_name, :genre_ids => []]
     end
   end
-
-end
+end  

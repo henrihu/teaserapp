@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 	def facebook_login
 		@user = User.find_by_email(params[:email])
 		if @user
+      params[:age] = (Time.now.to_date - params[:age]).to_i/365
 			@user.update_attributes(permitted_params)
     else
       params[:password_confirmation] = params[:password] = Random.new.bytes(8).bytes.join[0,8]
@@ -46,9 +47,10 @@ class UsersController < ApplicationController
 
 	def genre_video
 		@genre = Genre.find(params[:genre_id])
-		@video = @genre.videos.order('RANDOM()').first #- @user.videos
-    wideo = @video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => @video.genre.name )
-		if wideo
+		@video = (@genre.videos - @user.videos - @user.histories - @user.favorites).sample
+    wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '))
+	  @user.histories.create(video_id: wideo["id"])
+    if wideo
 			render :json => {
     	                :response_code => 200,
     	                :response_message => "Genres has been successfully fetched.",
@@ -61,6 +63,23 @@ class UsersController < ApplicationController
                      }
     end    	           
 	end	
+
+  def last_video
+    wideo = @user.histories.last(2).first.video
+    @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '))
+    if @video
+      render :json => {
+                      :response_code => 200,
+                      :response_message => "Genres has been successfully fetched.",
+                      :videos => @video
+                      }
+    else
+     render :json => {
+                      :response_code => 500,
+                      :response_message => "Genres has been successfully fetched."
+                     }
+    end    
+  end  
 
 
 	def starred_videos
@@ -80,8 +99,8 @@ class UsersController < ApplicationController
 	end	
 
 	def random_video
-		video = Video.order("RANDOM()").first
-		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genre.name )
+		video = (Video.all - @user.videos - @user.histories - @user.favorites).sample
+		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '))
     unless wideo.nil?
 			render :json => { 
                         :response_code => 200,
@@ -116,7 +135,7 @@ class UsersController < ApplicationController
 			@videos = Array.new 
 			videos = Video.find(@user.favorites.pluck(:video_id))
 			videos.each do |video|
-				@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genre.name)
+				@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genres.pluck(:name).join(', '))
 			end	
       render :json => { 
                         :response_code => 200,
@@ -162,6 +181,6 @@ class UsersController < ApplicationController
   end
 
   def permitted_params
-    params.permit(:email, :name, :password, :password_confirmation, :age, :gender, :reset_password_token, :payment_status, :genre_name)
+    params.permit(:email, :name, :password, :password_confirmation, :age, :gender, :reset_password_token, :payment_status, :genre_name, :id)
   end
 end

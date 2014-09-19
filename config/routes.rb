@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post 'get_starred_videos' => 'users#get_starred_videos'
   post 'reset_password' => 'passwords#reset_password'
   post 'seen_video' => 'users#seen_video'
+  post 'last_video' => 'users#last_video'
 
   get 'edit_password/:reset_password_token'   => 'passwords#edit_password', as: :editable
   patch 'update_password/:reset_password_token' => 'passwords#update_password', as: :update_password

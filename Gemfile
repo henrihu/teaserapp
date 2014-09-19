@@ -27,7 +27,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'quiet_assets'
-gem 'activeadmin', github: 'activeadmin'
+#gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'devise'
 gem 'rails_12factor',        group: :production
 gem 'select2-rails'
