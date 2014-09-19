@@ -25,7 +25,7 @@ ActiveAdmin.register Video do
   index :download_links => false do
     selectable_column
     column :name
-    column :genre
+    #column :genre
     column "Actions" do |video|  
       a do                                                         
         link_to 'View', admin_video_path(video)
