@@ -57,7 +57,7 @@ class UsersController < ApplicationController
                       :videos => wideo
         	            }
     else
-     render :json => {
+      render :json => {
     	                :response_code => 500,
     	                :response_message => "Genres has been successfully fetched."
                      }
@@ -178,7 +178,7 @@ class UsersController < ApplicationController
     else
       render :json => { 
                         :response_code => 500,
-                        :response_message => "Yuo're not authorized to do it."
+                        :response_message => "You're not authorized to do it."
                       }
     end  
   end 
