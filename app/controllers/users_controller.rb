@@ -167,7 +167,22 @@ class UsersController < ApplicationController
                         :response_message => "Video doesn't exist."
                       }
     end  
-  end  
+  end 
+
+  def delete_starred_video
+    video = @user.favorites.find_by(video_id: params[:video_id])
+    if video.destroy
+      render :json => { 
+                        :response_code => 200,
+                        :response_message => "Video has been removed from your starred list."
+                      }
+    else
+      render :json => { 
+                        :response_code => 500,
+                        :response_message => "Yuo're not authorized to do it."
+                      }
+    end  
+  end 
 
 
   private
