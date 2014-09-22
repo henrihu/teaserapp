@@ -48,8 +48,8 @@ class UsersController < ApplicationController
 	def genre_video
 		@genre = Genre.find(params[:genre_id])
 		@video = (@genre.videos - @user.videos - @user.histories - @user.favorites).sample
-    wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '))
-	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"] )
+    wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '), last_video: false)
+	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"])
     @user.histories.create(video_id: wideo["id"])
     history.destroy unless history.nil?
     if wideo
