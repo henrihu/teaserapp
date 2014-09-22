@@ -71,7 +71,8 @@ class UsersController < ApplicationController
   def last_video
     index = params[:history_id] + 1
     @genre = Genre.find(params[:genre_id])
-    wideo = @user.histories.where("video_id IN (?)", @genre.videos.pluck(:id)).last(index).first.video
+    #where("video_id IN (?)", @genre.videos.pluck(:id))
+    wideo = @user.histories.last(index).first.video
     status = false ||  @user.histories.count == 2
     @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '), last_video: status )
     if @video
