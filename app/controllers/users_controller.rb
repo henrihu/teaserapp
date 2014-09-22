@@ -21,8 +21,9 @@ class UsersController < ApplicationController
 
 	def facebook_login
 		@user = User.find_by_email(params[:email])
-		if @user
-      params[:age] = (Time.now.to_date - params[:age]).to_i/365
+    params[:age] = find_age(params[:age])
+    if @user
+      params[:age] = 
 			@user.update_attributes(permitted_params)
     else
       params[:password_confirmation] = params[:password] = Random.new.bytes(8).bytes.join[0,8]
@@ -178,6 +179,11 @@ class UsersController < ApplicationController
                         :response_message => "User doesn't exist."
                       }
     end
+  end
+
+  def find_age date
+    date_values = date.split('/').collect{|s| s.to_i}
+    return (Time.now.to_date - Date.new(date_values[2],date_values[0],date_values[1]))/365
   end
 
   def permitted_params
