@@ -49,8 +49,11 @@ class UsersController < ApplicationController
 		@genre = Genre.find(params[:genre_id])
 		@video = (@genre.videos - @user.videos - @user.histories - @user.favorites).sample
     wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '))
-	  @user.histories.create(video_id: wideo["id"])
+	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"] )
+    @user.histories.create(video_id: wideo["id"])
+    history.destroy unless history.nil?
     if wideo
+      history
 			render :json => {
     	                :response_code => 200,
     	                :response_message => "Genres has been successfully fetched.",
@@ -65,8 +68,11 @@ class UsersController < ApplicationController
 	end	
 
   def last_video
-    wideo = @user.histories.last(2).first.video
-    @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '))
+    index = params[:history_id] + 1
+    @genre = Genre.find(params[:genre_id])
+    wideo = @user.histories.where("video_id IN (?)", @genre.videos.pluck(:id)).last(index).first.video
+    status = false || @user.my_histories.count == 2
+    @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '), last_video: status )
     if @video
       render :json => {
                       :response_code => 200,
