@@ -23,8 +23,7 @@ class UsersController < ApplicationController
 		@user = User.find_by_email(params[:email])
     params[:age] = find_age(params[:age])
     if @user
-      params[:age] = 
-			@user.update_attributes(permitted_params)
+      @user.update_attributes(permitted_params)
     else
       params[:password_confirmation] = params[:password] = Random.new.bytes(8).bytes.join[0,8]
       @user = User.create(permitted_params) 
