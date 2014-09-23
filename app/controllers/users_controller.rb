@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"])
     @user.histories.create(video_id: wideo["id"])
     history.destroy unless history.nil?
-    if wideo
+    unless wideo.nil?
       history
 			render :json => {
     	                :response_code => 200,
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     else
       render :json => {
     	                :response_code => 500,
-    	                :response_message => "Genres has been successfully fetched."
+    	                :response_message => "No more videos available for this genre."
                      }
     end    	           
 	end	
