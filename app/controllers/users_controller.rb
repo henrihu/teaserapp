@@ -71,7 +71,10 @@ class UsersController < ApplicationController
     index = params[:history_id] + 1
     @genre = Genre.find(params[:genre_id])
     wideo = @user.histories.last(index).first.video
-    status = false ||  params[:history_id] + 1 == @user.histories.count
+    if params[:history_id] + 1 == @user.histories.count
+      status = false
+      wideo = @user.histories.order("RANDOM()").first.video
+    end  
     @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '), last_video: status )
     if @video
       render :json => {
