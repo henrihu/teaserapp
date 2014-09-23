@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 	def genre_video
 		@genre = Genre.find(params[:genre_id])
     @user.histories.destroy_all if params[:first_time] == 1
-		@video = (@genre.videos - @user.videos - @user.histories - @user.favorites).sample
+		@video = (@genre.videos - @user.videos - @user.my_histories - @user.my_favorites).sample
     wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '), last_video: false)
 	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"])
     @user.histories.create(video_id: wideo["id"])
@@ -71,7 +71,6 @@ class UsersController < ApplicationController
   def last_video
     index = params[:history_id] + 1
     @genre = Genre.find(params[:genre_id])
-    #where("video_id IN (?)", @genre.videos.pluck(:id))
     wideo = @user.histories.last(index).first.video
     status = false ||  params[:history_id] + 1 == @user.histories.count
     @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '), last_video: status )
@@ -107,7 +106,7 @@ class UsersController < ApplicationController
 	end	
 
 	def random_video
-		video = (Video.all - @user.videos - @user.histories - @user.favorites).sample
+		video = (Video.all - @user.videos - @user.my_histories - @user.my_favorites).sample
 		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '))
     unless wideo.nil?
 			render :json => { 

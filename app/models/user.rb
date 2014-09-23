@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, 
 						format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i , 
 						message: "Please enter valid email address."}
-	has_many :my_histories, :through => :histories, :source => :history					
+	has_many :my_histories, :through => :histories, :source => :history
+	has_many :my_favorites, :through => :favorites, :source => :favorite						
   has_many :users_videos
   has_many :videos, through: :users_videos
   def send_token
