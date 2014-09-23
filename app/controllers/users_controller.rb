@@ -49,17 +49,16 @@ class UsersController < ApplicationController
 		@genre = Genre.find(params[:genre_id])
     @user.histories.destroy_all if params[:first_time] == 1
 		@video = (@genre.videos - @user.videos - @user.my_histories - @user.my_favorites).sample
-    wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '), last_video: false)
-	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"])
-    @user.histories.create(video_id: wideo["id"])
-    history.destroy unless history.nil?
-    unless wideo.nil?
-      history
-			render :json => {
-    	                :response_code => 200,
-    	                :response_message => "Genres has been successfully fetched.",
-                      :videos => wideo
-        	            }
+    unless @video.nil?
+      wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '), last_video: false)
+  	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"])
+      @user.histories.create(video_id: wideo["id"])
+      history.destroy unless history.nil?
+        render :json => {
+    	                    :response_code => 200,
+    	                    :response_message => "Genres has been successfully fetched.",
+                          :videos => wideo
+        	              }
     else
       render :json => {
     	                :response_code => 500,
