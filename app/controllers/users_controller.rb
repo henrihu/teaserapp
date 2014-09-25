@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     @user.histories.destroy_all if params[:first_time] == 1
 		@video = (@genre.videos - @user.videos - @user.my_histories).sample
     unless @video.nil?
-      wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '), last_video: false, :starred_status => @user.my_favorites.in? (@video))
+      wideo = @video.attributes.except("created_at", "updated_at").merge!(:genre_name => @video.genres.pluck(:name).join(', '), last_video: false, :starred_status => @user.my_favorites.in? @video)
   	  history = History.find_by(user_id: @user.id, video_id:  wideo["id"])
       @user.histories.create(video_id: wideo["id"])
       history.destroy unless history.nil?
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
     @genre = Genre.find(params[:genre_id])
     wideo = @user.histories.last(index).first.video
     status = false ||  params[:history_id] + 1 == @user.histories.count
-    @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '), last_video: status, :starred_status => @user.my_favorites.in? (@video))
+    @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '), last_video: status, :starred_status => @user.my_favorites.in? @video)
     if @video
       render :json => {
                       :response_code => 200,
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
 
 	def random_video
 		video = (Video.all - @user.videos).sample
-		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '), :starred_status => @user.my_favorites.in? (@video))
+		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '), :starred_status => @user.my_favorites.in? @video)
     unless wideo.nil?
 			render :json => { 
                         :response_code => 200,
