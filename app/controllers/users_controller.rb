@@ -72,14 +72,14 @@ class UsersController < ApplicationController
     index = params[:history_id] + 1
     @genre = Genre.find(params[:genre_id])
     wideo = @user.histories.last(index).first.video
-    status = false ||  params[:history_id] + 1 == @user.histories.count
+    status = false ||  index == @user.histories.count
     stats = @user.my_favorites.include? wideo
     @video = wideo.attributes.except("created_at", "updated_at").merge!(:genre_name => wideo.genres.pluck(:name).join(', '), last_video: status, :starred_status => stats)
     if @video
       render :json => {
-                      :response_code => 200,
-                      :response_message => "Genres has been successfully fetched.",
-                      :videos => @video
+                        :response_code => 200,
+                        :response_message => "Genres has been successfully fetched.",
+                        :videos => @video
                       }
     else
      render :json => {
@@ -155,7 +155,7 @@ class UsersController < ApplicationController
 		else
 			render :json => { 
                         :response_code => 500,
-                        :response_message => "Please purchase the premium version."
+                        :response_message => "Starring films is available on the paid version, would you like to upgrade?"
                       }
     end                  
 			
