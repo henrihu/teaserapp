@@ -147,7 +147,7 @@ class UsersController < ApplicationController
       render :json => { 
                         :response_code => 200,
                         :response_message => "Videos has been successfully fetched.",
-                        :videos => @videos.reverse
+                        :videos => @videos
                       }
 
 		else
