@@ -140,8 +140,9 @@ class UsersController < ApplicationController
 	def get_starred_videos
 		if @user.payment_status == true
 			@videos = Array.new 
-			videos = Video.find(@user.favorites.order('created_at DESC').pluck(:video_id))
-			videos.each do |video|
+      videos = Array.new
+      @user.favorites.order('created_at DESC').map{|f| videos << f.video}
+		  videos.each do |video|
 				@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genres.pluck(:name).join(', '))
 			end	
       render :json => { 
