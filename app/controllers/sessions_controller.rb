@@ -6,8 +6,7 @@ class SessionsController < ApplicationController
   		render :json => {  
     	  	               :response_code => 200,
         	               :response_message => "You've signed in successfully.",
-        	               :user_id => @user.id,
-                         :payment_status => @user.payment_status
+        	               :user => @user
         	            }
   	else
   		render :json => {  
