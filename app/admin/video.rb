@@ -18,6 +18,7 @@ ActiveAdmin.register Video do
       f.input :year, :as => :select, :collection => (1900..Time.now.year).to_a
       f.input :director_name
       f.input :link
+      f.input :actors
       f.input :imdb_rating, as: :string, :placeholder => "Out of 10"
       f.input :rotten_tomatoes_rating, as: :string, :placeholder => "Out of 100"
     end
@@ -47,6 +48,7 @@ ActiveAdmin.register Video do
       row 'Genres' do |video|
         raw(video.genres.map { |genre| link_to genre.name, admin_genre_path(genre) }.join(', '))
       end
+      row :actors
       row :imdb_rating
       row :rotten_tomatoes_rating    
       row :director_name
@@ -63,7 +65,7 @@ ActiveAdmin.register Video do
 
   controller do
     def permitted_params 
-      params.permit video: [:name, :year, :link, :director_name, :imdb_rating, :rotten_tomatoes_rating, :genre_ids => []]
+      params.permit video: [:name, :year, :link, :director_name, :imdb_rating, :rotten_tomatoes_rating, :actors, :genre_ids => []]
     end
   end
 end  
