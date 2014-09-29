@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/bmc/jquery-raty-rails.git
-  revision: f362f17c0ff3ac039ab05b5e48e5db24a27794b3
-  specs:
-    jquery-raty-rails (0.0.1)
-      rails (>= 3.2.3)
-
-GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: 930d34cd224272687613dcf1db4cf5b1347f1098
   specs:
@@ -201,7 +194,6 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
-  jquery-raty-rails!
   pg
   quiet_assets
   rails (= 4.1.5)

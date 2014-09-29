@@ -68,7 +68,6 @@ class UsersController < ApplicationController
 
   def last_video
     index = params[:history_id] + 1
-    @genre = Genre.find(params[:genre_id])
     wideo = @user.histories.last(index).first.video
     status = false ||  index == @user.histories.count
     stats = @user.my_favorites.include? wideo
@@ -105,10 +104,13 @@ class UsersController < ApplicationController
 	end	
 
 	def random_video
-		video = (Video.all - @user.videos).sample
+    @user.histories.destroy_all if params[:first_time] == 1
+		video = (Video.all - @user.videos - @user.histories).sample
     stats = @user.my_favorites.include? video
-		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '), :starred_status => stats)
+    last_video = (Video.all - @user.videos - @user.histories).length == 1
+		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '), :starred_status => stats, :last_video => last_video)
     unless wideo.nil?
+      @user.histories.create(video_id: wideo["id"])
 			render :json => { 
                         :response_code => 200,
                         :response_message => "Videos has been fetched successfully.",
