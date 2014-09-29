@@ -105,9 +105,9 @@ class UsersController < ApplicationController
 
 	def random_video
     @user.histories.destroy_all if params[:first_time] == 1
-		video = (Video.all - @user.videos - @user.histories).sample
+		video = (Video.all - @user.videos - @user.my_histories).sample
     stats = @user.my_favorites.include? video
-    last_video = (Video.all - @user.videos - @user.histories).length == 1
+    last_video = (Video.all - @user.videos - @user.my_histories).length == 1
 		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '), :starred_status => stats, :last_video => last_video)
     unless wideo.nil?
       @user.histories.create(video_id: wideo["id"])
