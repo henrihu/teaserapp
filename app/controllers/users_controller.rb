@@ -167,6 +167,8 @@ class UsersController < ApplicationController
     if @video
       @user.users_videos.create(video_id: @video.id)
       history = History.find_by(user_id: @user.id, video_id: @video.id)
+      starred = @user.favorites.find_by_video_id(@video.id)
+      starred.destroy unless starred.nil?
       history.destroy unless history.nil?
       render :json => { 
                         :response_code => 200,
