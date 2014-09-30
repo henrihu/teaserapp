@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140925055942) do
+ActiveRecord::Schema.define(version: 20140926113908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140925055942) do
     t.string   "director_name"
     t.float    "imdb_rating",            default: 0.0
     t.float    "rotten_tomatoes_rating", default: 0.0
+    t.string   "actors"
   end
 
 end

@@ -133,7 +133,7 @@ class UsersController < ApplicationController
 		else
 			render :json => { 
                         :response_code => 500,
-                        :response_message => "You're aleady subscribed."
+                        :response_message => "You're already subscribed."
                       }
 		end
 
@@ -164,7 +164,8 @@ class UsersController < ApplicationController
 
   def seen_video
     @video = Video.find(params[:video_id])
-    if @video
+    @seen_video = @user.videos.include? @video
+    if @video and !@seen_video
       @user.users_videos.create(video_id: @video.id)
       history = History.find_by(user_id: @user.id, video_id: @video.id)
       starred = @user.favorites.find_by_video_id(@video.id)
@@ -177,7 +178,7 @@ class UsersController < ApplicationController
     else
       render :json => { 
                         :response_code => 500,
-                        :response_message => "Video doesn't exist."
+                        :response_message => "You've already seen this video."
                       }
     end  
   end 
