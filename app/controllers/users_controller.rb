@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     else
      render :json => {
                       :response_code => 500,
-                      :response_message => "Genres has been successfully fetched."
+                      :response_message => "No history available."
                      }
     end    
   end  
@@ -141,8 +141,7 @@ class UsersController < ApplicationController
 
 	def get_starred_videos
 		if @user.payment_status == true
-			@videos = Array.new 
-      videos = Array.new
+			@videos = Array.new; videos = Array.new;
       @user.favorites.order('created_at DESC').map{|f| videos << f.video}
 		  videos.each do |video|
 				@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genres.pluck(:name).join(', '))
