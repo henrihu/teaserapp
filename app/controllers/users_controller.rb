@@ -106,10 +106,10 @@ class UsersController < ApplicationController
 	def random_video
     @user.histories.destroy_all if params[:first_time] == 1
 		video = (Video.all - @user.videos - @user.my_histories).sample
+    unless video.nil?
     stats = @user.my_favorites.include? video
     last_video = (Video.all - @user.videos - @user.my_histories).length == 1
 		wideo = video.attributes.except("created_at", "updated_at", "genre_id").merge!(:genre_name => video.genres.pluck(:name).join(', '), :starred_status => stats, :last_video => last_video)
-    unless wideo.nil?
       @user.histories.create(video_id: wideo["id"])
 			render :json => { 
                         :response_code => 200,
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
                       }
 		else
 			render :json => { 
-                        :response_code => 500,
+                        :response_code => 200,
                         :response_message => "No videos found."
                       }
 		end	
