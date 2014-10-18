@@ -13,7 +13,7 @@ ActiveAdmin.register User do
   filter :email
   filter :gender
 
-  index do
+  index :download_links => true do
     selectable_column
     column :email
     column :name

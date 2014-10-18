@@ -197,6 +197,20 @@ class UsersController < ApplicationController
     end  
   end 
 
+  def erase_seen_videos
+    if @user.videos.destroy_all
+      render :json => { 
+                        :response_code => 200,
+                        :response_message => "Seen videos are deleted successfully."
+                      }
+    else
+      render :json => { 
+                        :response_code => 500,
+                        :response_message => "Sorry! no seen videos available."
+                      }
+    end                  
+  end  
+
 
   private
   def find_user

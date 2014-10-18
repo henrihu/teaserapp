@@ -48,6 +48,22 @@ class PasswordsController < ApplicationController
                       }
     end
   end 
+
+  def update_profile
+    @user = User.find(params[:user_id])
+    if @user.authenticate(params[:password]) && @user.update_attributes(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
+      render :json => {
+                        :response_code => 200,
+                        :response_message => "Your password was changed successfully."             
+                      }
+    else
+      render :json => {
+                        :response_code => 500,
+                        :response_message => "Old password doesn't match."         
+                      }
+    end                  
+  end
+
   def permitted_params
     params.require(:user).permit!
   end

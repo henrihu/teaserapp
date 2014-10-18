@@ -10,12 +10,17 @@ class User < ActiveRecord::Base
 						message: "Please enter valid email address."}
 	has_many :my_histories, :through => :histories, :source => :history
 	has_many :my_favorites, :through => :favorites, :source => :favorite						
-  has_many :users_videos
+  has_many :users_videos, :dependent => :destroy
   has_many :videos, through: :users_videos
+  #after_create :welcome_mail
   
   def send_token
     self.update_attribute(:reset_password_token, SecureRandom.urlsafe_base64+Time.now.zone)
     UserMailer.reset_password_mail(self).deliver
+  end 
+
+  def welcome_mail
+    UserMailer.signup_mail(self).deliver
   end 
 
 end

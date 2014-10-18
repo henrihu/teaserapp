@@ -41,13 +41,23 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
-  port:                  587,
-  domain:               'google.com',
-  user_name:            'halosys.tester@gmail.com',
-  password:             'Mobiloitte1',
-  authentication:       'plain',
-  enable_starttls_auto: true  }
+  # config.action_mailer.smtp_settings = {
+  # address:              'smtp.mandrillapp.com',
+  # port:                  2525,
+  # domain:               'mandrillapp.com',
+  # user_name:            'javed.hussain@mobiloitte.com',
+  # password:             'XxKq0oTjJMfLDdzRvV2k-Q',
+  # authentication:       'plain',
+  # enable_starttls_auto: true  }
+
+   config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 2525, # ports 587 and 2525 are also supported with STARTTLS
+    :enable_starttls_auto => true, # detects and uses STARTTLS
+    :user_name => "javed.hussain@mobiloitte.com",
+    :password  => "XxKq0oTjJMfLDdzRvV2k-Q", # SMTP password is any valid API key
+    :authentication => 'plain', # Mandrill supports 'plain' or 'login'
+    :domain => 'mandrillapp.com', # your domain to identify your server when connecting
+  }
 
 end
