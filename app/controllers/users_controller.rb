@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         render :json => {
         	                :response_code => 200,
         	                :response_message => "You've signed up successfully.",
-                          :user => @user
+                          :user => @user.attributes.merge!(facebook_login: false)
         	              }
     else
     	  render :json => {  
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 		render :json => {
     	                :response_code => 200,
     	                :response_message => "You've logged in successfully.",
-                      :user => @user
+                      :user => @user.attributes.merge!(facebook_login: true)
         	          }
 	end	
 
