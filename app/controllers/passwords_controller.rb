@@ -51,10 +51,10 @@ class PasswordsController < ApplicationController
 
   def update_profile
     @user = User.find(params[:user_id])
-    if @user.update_attributes(password: params[:password], password_confirmation: params[:password_confirmation])
+    if @user.update_attributes(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
       render :json => {
                         :response_code => 200,
-                        :response_message => "Your password was changed successfully."             
+                        :response_message => "Your profile has been updated successfully."             
                       }
     else
       render :json => {

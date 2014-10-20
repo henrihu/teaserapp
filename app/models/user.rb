@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 	has_many :my_favorites, :through => :favorites, :source => :favorite						
   has_many :users_videos, :dependent => :destroy
   has_many :videos, through: :users_videos
-  #after_create :welcome_mail
+  after_create :welcome_mail
   
   def send_token
     self.update_attribute(:reset_password_token, SecureRandom.urlsafe_base64+Time.now.zone)
