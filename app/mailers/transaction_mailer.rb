@@ -12,6 +12,6 @@ class TransactionMailer < MandrillMailer::TemplateMailer
       important: true,
       inline_css: true,
       async: true,
-      track_clicks: true
+      track_clicks: false
   end
 end
