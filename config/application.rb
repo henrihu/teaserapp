@@ -21,5 +21,6 @@ module TeaserApp
     # config.i18n.default_locale = :de
     # Heroku
     config.assets.initialize_on_precompile = false
+    ENV['MANDRILL_APIKEY'] = "XoDZKJupNEjZ8aYDcsHkgw"
   end
 end

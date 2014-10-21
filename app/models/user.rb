@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   end 
 
   def welcome_mail
-    UserMailer.signup_mail(self).deliver
+    TransactionMailer.welcome_email(self).deliver
   end 
 
 end

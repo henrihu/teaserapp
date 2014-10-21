@@ -68,6 +68,7 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    excon (0.40.0)
     execjs (2.2.1)
     formtastic (2.3.1)
       actionpack (>= 3.0)
@@ -95,6 +96,13 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mandrill-api (1.0.53)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
+    mandrill_mailer (0.4.10)
+      actionpack
+      activesupport
+      mandrill-api (~> 1.0.9)
     mime-types (1.25.1)
     minitest (5.4.1)
     multi_json (1.10.1)
@@ -194,6 +202,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  mandrill_mailer
   pg
   quiet_assets
   rails (= 4.1.5)

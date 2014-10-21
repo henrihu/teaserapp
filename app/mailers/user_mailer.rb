@@ -8,9 +8,4 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => "Password Reset Instructions")
   end
 
-  def signup_mail user
-    @name = user.name.split(' ').first
-    mail(:to => user.email, :subject => 'Welcome to Teaser')
-  end  
- 
 end

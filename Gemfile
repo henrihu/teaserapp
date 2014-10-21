@@ -21,5 +21,5 @@ gem 'rails_12factor',        group: :production
 gem 'select2-rails'
 gem 'thin'
 gem 'bcrypt', '~> 3.1.7'
-
+gem 'mandrill_mailer'
 
