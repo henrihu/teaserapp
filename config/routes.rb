@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post 'delete_starred_video' => 'users#delete_starred_video'
   post 'erase_seen_videos' => 'users#erase_seen_videos'
   post 'update_profile' => 'passwords#update_profile'
+  post 'update_fields' => 'passwords#update_fields'
 
   get 'edit_password/:reset_password_token'   => 'passwords#edit_password', as: :editable
   patch 'update_password/:reset_password_token' => 'passwords#update_password', as: :update_password
