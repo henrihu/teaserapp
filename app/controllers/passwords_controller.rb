@@ -27,26 +27,22 @@ class PasswordsController < ApplicationController
   end
 
   def update_password
-    @user = User.find_by_reset_password_token(params[:reset_password_token])
-    if @user.reset_password_sent_at > Time.zone.now + 8.hours and params[:password] == params[:password_confirmation]
-       @user.reset_password_token = nil
-       render :json => {
-                          :response_code => 400,
-                          :response_message => "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."         
-                       }
-    elsif @user.update_attributes!(permitted_params)
-      @user.reset_password_token = nil
-      @user.save
-      render :json => {
-                        :response_code => 200,
-                        :response_message => "Your password was changed successfully. You are now signed in."             
-                      }
+    if params[:user][:password].present? and params[:user][:password_confirmation].present?
+      @user = User.find_by_reset_password_token(params[:reset_password_token])
+      if @user.reset_password_sent_at > Time.zone.now + 8.hours
+          @user.update_attributes(reset_password_token: nil)
+          redirect_to :back, notice: "Your password reset link has been expired." 
+      
+      elsif params[:user][:password].eql? (params[:user][:password_confirmation]) 
+        @user.update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation], reset_password_token: nil)
+        redirect_to index_path, notice: "Your password was changed successfully. You are now signed in." 
+                      
+      else
+        redirect_to :back, alert: "Password and confirm password should be identical." 
+      end
     else
-      render :json => {
-                        :response_code => 0,
-                        :response_message => "cant change #{@user.errors}"   
-                      }
-    end
+      redirect_to :back, alert: "Password and confirm password can't be blank." 
+    end  
   end 
 
   def update_profile

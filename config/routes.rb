@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   root :to => 'admin/users#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  
+
+  get 'index' => 'homes#index'
   post 'login' => 'sessions#create'
   post 'logout' => 'sessions#destroy'
   post 'register' => 'users#create'
