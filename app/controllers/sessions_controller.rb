@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   		render :json => {  
     	  	               :response_code => 200,
         	               :response_message => "You've signed in successfully.",
-        	               :user => @user.attributes.merge!(facebook_login: false)
+        	               :user => @user.attributes.merge!(facebook_login: false, starred_videos: @user.my_favorites)
         	            }
   	else
   		render :json => {  

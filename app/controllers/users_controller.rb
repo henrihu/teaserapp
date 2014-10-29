@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         render :json => {
         	                :response_code => 200,
         	                :response_message => "You've signed up successfully.",
-                          :user => @user.attributes.merge!(facebook_login: false)
+                          :user => @user.attributes.merge!(facebook_login: false, starred_videos: @user.my_favorites)
         	              }
     else
     	  render :json => {  
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 		render :json => {
     	                :response_code => 200,
     	                :response_message => "You've logged in successfully.",
-                      :user => @user.attributes.merge!(facebook_login: true)
+                      :user => @user.attributes.merge!(facebook_login: true, starred_videos: @user.my_favorites)
         	          }
 	end	
 
@@ -93,7 +93,8 @@ class UsersController < ApplicationController
 		if favorite
 			render :json => { 
                         :response_code => 200,
-                        :response_message => "Videos has been starred successfully."
+                        :response_message => "Videos has been starred successfully.",
+                        :starred_videos => @user.my_favorites
                       }
 		else
 			render :json => { 
@@ -187,7 +188,8 @@ class UsersController < ApplicationController
     if video.destroy
       render :json => { 
                         :response_code => 200,
-                        :response_message => "Video has been removed from your starred list."
+                        :response_message => "Video has been removed from your starred list.",
+                        :starred_videos => @user.my_favorites
                       }
     else
       render :json => { 
