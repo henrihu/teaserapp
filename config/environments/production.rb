@@ -81,7 +81,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
   # Host
-  config.action_mailer.default_url_options = {:host =>'app-teaser.herokuapp.com', protocol: 'http://' }
+  config.action_mailer.default_url_options = {:host =>'54.69.7.69', protocol: 'http://' }
 
   #Mailer Code
   config.action_mailer.perform_deliveries = true
