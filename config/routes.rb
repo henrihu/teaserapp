@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  root :to => 'admin/users#index'
+  
+  root to: 'homes#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
