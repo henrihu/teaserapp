@@ -26,3 +26,11 @@
   border-color: #ebccd1;
   color: #a94442;
 }
+
+.btn-1 {
+    background-color: #139077;
+    border: medium none;
+    color: #fff!important;
+    outline: medium none;
+    text-decoration: none!important;
+}
