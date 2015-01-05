@@ -524,6 +524,9 @@ hr.separator-alt {
     }
 }
 @media (min-width: 320px) and (max-width: 360px) {
+        #hero img {
+    margin-top: 5px!important;  width: 90%; 
+}
     #hero {
         padding-top: 20px;
         padding-bottom: 50px;
@@ -599,6 +602,9 @@ hr.separator-alt {
     }
 }
 @media (min-width: 600px) and (max-width: 640px) {
+        #hero img {
+    margin-top: 5px!important;  width: 90%; 
+}
     #hero {
         padding-top: 20px;
     }
@@ -632,6 +638,7 @@ hr.separator-alt {
         text-align: center;
         padding-bottom: 25px;
     }
+
 }
 @media (width: 360px) {
     #gallery #owl-demo .item {
