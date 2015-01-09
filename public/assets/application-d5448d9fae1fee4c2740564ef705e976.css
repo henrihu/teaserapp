@@ -11715,7 +11715,7 @@ header {
     padding: 0px 10px 0px 0px;
 }
 #hero .logo {
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 #hero .lead {
     color: #e8f8f5;
@@ -12185,7 +12185,7 @@ hr.separator-alt {
 }
 @media (min-width: 768px) and (max-width: 980px) {
     #hero img {
-        margin-top: 200px;
+    
     }
     #features .iphone-1 {
         margin-top: 175px;
@@ -12202,9 +12202,8 @@ hr.separator-alt {
     }
 }
 @media (min-width: 320px) and (max-width: 360px) {
-        #hero img {
-    margin-top: 5px!important;  width: 90%; 
-}
+    #hero img {margin-top: 5px!important;}
+    .buttons {margin-bottom: 20px;}
     #hero {
         padding-top: 20px;
         padding-bottom: 50px;
@@ -12257,7 +12256,7 @@ hr.separator-alt {
 }
 @media (width: 1024px) {
     #hero img {
-        margin-top: 100px;
+
     }
     #owl-demo .item img {
         height: 100%;
@@ -12276,13 +12275,14 @@ hr.separator-alt {
         font-size: 24px;
     }
     #owl-demo .item img {
-        height: 100%;
+        height: 40%;
     }
 }
 @media (min-width: 600px) and (max-width: 640px) {
         #hero img {
-    margin-top: 5px!important;  width: 90%; 
+    margin-top: 5px!important;
 }
+
     #hero {
         padding-top: 20px;
     }
@@ -12293,7 +12293,7 @@ hr.separator-alt {
         font-size: 28px;
     }
     #hero .buttons {
-        margin-bottom: 50px;
+        margin-bottom: 25px;
     }
     #features img {
         margin: 20px auto;
@@ -12316,12 +12316,22 @@ hr.separator-alt {
         text-align: center;
         padding-bottom: 25px;
     }
-
+ .buttons {margin-bottom: 20px;}
 }
 @media (width: 360px) {
     #gallery #owl-demo .item {
         padding-left: 15px;
     }
+     .buttons {margin-bottom: 20px;}
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+.slider-s, .leftlogo-s{position:relative;}
+.slider-s .flexslider{position:absolute; top:110px;}
+.leftlogo-s .buttons{position:absolute; top:0; left:374px;}
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
