@@ -35,10 +35,13 @@ class UsersController < ApplicationController
 	end	
 
 	def all_genres
+    @genres = Array.new
+    genres = Genre.all
+    genres.each{|g| @genres << g.attributes.except("created_at", "updated_at").merge!(image: g.avatar_url)}
 	  render :json => {
     	                :response_code => 200,
     	                :response_message => "Genres has been successfully fetched.",
-                      :genres => Genre.all.as_json(only: [:id, :name, :avatar])
+                      :genres => @genres#.as_json(only: [:id, :name, :image])
         	          }
                  
 	end	
