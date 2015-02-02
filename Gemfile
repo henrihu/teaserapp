@@ -22,4 +22,6 @@ gem 'select2-rails'
 gem 'thin'
 gem 'bcrypt', '~> 3.1.7'
 gem 'mandrill_mailer'
-
+gem 'carrierwave'
+gem 'cloudinary'
+gem 'rmagick'

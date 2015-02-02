@@ -8,7 +8,16 @@ ActiveAdmin.register Genre do
     end
     redirect_to admin_genres_path, :alert => "Genres has been deleted successfully."
   end
-  
+   
+  form do |f|
+    f.inputs "Genre" do 
+      f.input :name
+      f.input :avatar, as: :file 
+    end
+    f.actions 
+  end  
+
+
   index do
     selectable_column
     column :name
@@ -31,12 +40,15 @@ ActiveAdmin.register Genre do
   show do |ad|
     attributes_table do
       row :name
+      row "Avatar" do |g|
+        image_tag g.avatar.url 
+      end  
     end
   end
 
   controller do
     def permitted_params
-      params.permit genre: [:name]
+      params.permit genre: [:name, :avatar]
     end
   end
 

@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 	  render :json => {
     	                :response_code => 200,
     	                :response_message => "Genres has been successfully fetched.",
-                      :genres => Genre.all.as_json(only: [:id, :name])
+                      :genres => Genre.all.as_json(only: [:id, :name, :avatar])
         	          }
                  
 	end	

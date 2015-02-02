@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	has_secure_password
+  
 	has_many :favorites, :dependent => :destroy
 	has_many :histories, :dependent => :destroy
 	validates :name, presence: true, length: {  in: 3..25 }
