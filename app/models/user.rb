@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   
 	has_many :favorites, :dependent => :destroy
 	has_many :histories, :dependent => :destroy
-	validates :name, presence: true, length: {  in: 3..25 }
+	validates :name, presence: true, length: {  in: 3..25 }, on: :create
 	validates :age, presence: true
 	validates :gender, presence: true
-  validates :email, presence: true, uniqueness: true, 
+  validates :email, presence: true, uniqueness: true, on: :create,
 						format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i , 
 						message: "Please enter valid email address."}
 	has_many :my_histories, :through => :histories, :source => :history

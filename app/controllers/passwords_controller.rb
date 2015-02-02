@@ -47,10 +47,13 @@ class PasswordsController < ApplicationController
     @user = User.find(params[:user_id])
     if @user.authenticate(params[:old_password])
       if params[:password].eql? (params[:password_confirmation])
-        @user.update_attributes(password: params[:password], password_confirmation: params[:password_confirmation])
+        attributes = {}
+        attributes[:email] = params[:email] if params[:email]; attributes[:name] = params[:name] if params[:name]
+        attributes[:password] = params[:password] if params[:password]; attributes[:password_confirmation] = params[:password_confirmation] if params[:password_confirmation]
+        @user.update_attributes(attributes)
         render :json => {
                         :response_code => 200,
-                        :response_message => "Password has been updated successfully."             
+                        :response_message => "Profile has been updated successfully."             
                       }
       else
         render :json => {
