@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hcxktuahn
+  api_key: '634949573996755'
+  api_secret: 4KUrzf45AOzZgvRagPaIlooEZYU
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hcxktuahn
+  api_key: '634949573996755'
+  api_secret: 4KUrzf45AOzZgvRagPaIlooEZYU
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hcxktuahn
+  api_key: '634949573996755'
+  api_secret: 4KUrzf45AOzZgvRagPaIlooEZYU
+  enhance_image_tag: true
+  static_image_support: false
