@@ -1,19 +1,19 @@
 ---
 development:
-  cloud_name: hcxktuahn
-  api_key: '634949573996755'
-  api_secret: 4KUrzf45AOzZgvRagPaIlooEZYU
+  cloud_name: dbkne8hml
+  api_key: '914699423125286'
+  api_secret: LKDRvQCeZZ0DYdOlRTZ0hdczy7w
   enhance_image_tag: true
   static_image_support: false
 production:
-  cloud_name: hcxktuahn
-  api_key: '634949573996755'
-  api_secret: 4KUrzf45AOzZgvRagPaIlooEZYU
+  cloud_name: dbkne8hml
+  api_key: '914699423125286'
+  api_secret: LKDRvQCeZZ0DYdOlRTZ0hdczy7w
   enhance_image_tag: true
   static_image_support: true
 test:
-  cloud_name: hcxktuahn
-  api_key: '634949573996755'
-  api_secret: 4KUrzf45AOzZgvRagPaIlooEZYU
+  cloud_name: dbkne8hml
+  api_key: '914699423125286'
+  api_secret: LKDRvQCeZZ0DYdOlRTZ0hdczy7w
   enhance_image_tag: true
   static_image_support: false
