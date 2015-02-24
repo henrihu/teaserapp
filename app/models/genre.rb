@@ -3,7 +3,7 @@ class Genre < ActiveRecord::Base
 	validates :name, presence: true, length: {  in: 3..25 }
 	mount_uploader :avatar, AvatarUploader
 
-	def image
-		nil
-	end	
+	# def image
+	# 	nil
+	# end	
 end
