@@ -70,6 +70,8 @@ class PasswordsController < ApplicationController
                         :response_code => 500,
                         :response_message => "Old password doesn't match."        
                       }
+    else
+      return
     end  
   end  
 
