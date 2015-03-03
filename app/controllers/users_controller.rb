@@ -206,7 +206,7 @@ class UsersController < ApplicationController
     if @user.videos.destroy_all
       render :json => { 
                         :response_code => 200,
-                        :response_message => "Seen videos are deleted successfully."
+                        :response_message => "Seen films were successfully cleared."
                       }
     else
       render :json => { 

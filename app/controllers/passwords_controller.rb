@@ -45,35 +45,20 @@ class PasswordsController < ApplicationController
 
   def update_profile
     @user = User.find(params[:user_id])
-    check_password(@user, params[:old_password])
-    if @user
-        attributes = {}
-        attributes[:email] = params[:email] if params[:email]; attributes[:name] = params[:name] if params[:name]
-        attributes[:password] = params[:password] if params[:password]; attributes[:password_confirmation] = params[:password_confirmation] if params[:password_confirmation]
-        @user.update_attributes(attributes)
+    if @user.authenticate(params[:old_password])
+      @user.update_attributes(password: params[:new_password], name: params[:password_confirmation])
         render :json => {
                           :response_code => 200,
-                          :response_message => "Profile has been updated successfully."             
+                          :response_message => "Your profile has been updated successfully."             
                         }
       
     else
       render :json => {
                         :response_code => 500,
-                        :response_message => "User doesn't exist."        
+                        :response_message => "Old Password doesn't exist."        
                       }
     end                  
-  end
-
-  def check_password user, password
-    unless user.authenticate(password)
-      render :json => {
-                        :response_code => 500,
-                        :response_message => "Old password doesn't match."        
-                      }
-    else
-      return
-    end  
-  end  
+  end 
 
   def update_fields
     @user = User.find(params[:user_id])
