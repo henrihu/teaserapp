@@ -144,25 +144,34 @@ class UsersController < ApplicationController
 	end	
 
 	def get_starred_videos
-		if @user.payment_status == true
-			@videos = Array.new; videos = Array.new;
+		# if @user.payment_status == true
+		# 	@videos = Array.new; videos = Array.new;
+  #     @user.favorites.order('created_at DESC').map{|f| videos << f.video}
+		#   videos.each do |video|
+		# 		@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genres.pluck(:name).join(', '))
+		# 	end	
+  #     render :json => { 
+  #                       :response_code => 200,
+  #                       :response_message => "Videos has been successfully fetched.",
+  #                       :videos => @videos
+  #                     }
+
+		# else
+		# 	render :json => { 
+  #                       :response_code => 500,
+  #                       :response_message => "Starring films is available on the paid version, would you like to upgrade?"
+  #                     }
+  #   end                  
+		@videos = Array.new; videos = Array.new;
       @user.favorites.order('created_at DESC').map{|f| videos << f.video}
-		  videos.each do |video|
-				@videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genres.pluck(:name).join(', '))
-			end	
+      videos.each do |video|
+        @videos << video.attributes.except("created_at", "updated_at", "genre_id").merge(:genre_name => video.genres.pluck(:name).join(', '))
+      end 
       render :json => { 
                         :response_code => 200,
                         :response_message => "Videos has been successfully fetched.",
                         :videos => @videos
-                      }
-
-		else
-			render :json => { 
-                        :response_code => 500,
-                        :response_message => "Starring films is available on the paid version, would you like to upgrade?"
-                      }
-    end                  
-			
+                      }	
 	end	
 
   def seen_video
