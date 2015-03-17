@@ -46,7 +46,7 @@ class PasswordsController < ApplicationController
   def update_profile
     @user = User.find(params[:user_id])
     if @user.authenticate(params[:old_password])
-      @user.update_attributes(password: params[:new_password], name: params[:password_confirmation])
+      @user.update_attributes(password: params[:new_password], password_confirmation: params[:password_confirmation])
         render :json => {
                           :response_code => 200,
                           :response_message => "Your profile has been updated successfully."             
