@@ -17,3 +17,7 @@
 /.ruby-gemset
 /.ruby-version
 
+/.idea
+/public/assets
+/teaseramazonkey.pem
+
