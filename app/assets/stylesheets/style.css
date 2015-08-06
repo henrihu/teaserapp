@@ -270,7 +270,7 @@ footer .footer-links > li > a {
     outline: none;
 }
 .btn-2 {
-    background-color: rgb(0,0,0,0);
+    background-color: rgba(0,0,0,0);
     border: 2px solid #fff;
     color: #fff;
     font-size: 16px;
@@ -282,7 +282,7 @@ footer .footer-links > li > a {
 }
 .btn-2:hover,
 .btn-2:focus {
-    background-color: rgb(0,0,0,0);
+    background-color: rgba(0,0,0,0);
     border: 2px solid #fff;
     color: #1abc9c;
 }
@@ -321,7 +321,7 @@ footer .footer-links > li > a {
     color: #fff;
 }
 .btn-link {
-    background: rgb(0,0,0,0);
+    background: rgba(0,0,0,0);
     border: none;
     color: #fff;
     font-size: 16px;
@@ -330,7 +330,7 @@ footer .footer-links > li > a {
 }
 .btn-link:hover,
 .btn-link:focus {
-    background: rgb(0,0,0,0);
+    background: rgba(0,0,0,0);
     border: none;
     color: #555;
     text-decoration: none;
@@ -403,11 +403,11 @@ footer .footer-links > li > a {
 }
 hr.separator {
     margin-top: 100px;
-    background: rgb(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
     border-top: 1px solid #47c9af;
 }
 hr.separator-alt {
-    background: rgb(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
     border-top: 2px solid #1abc9c;
     border-top-radius: 2px;
     max-width: 300px;
