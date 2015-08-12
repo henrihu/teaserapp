@@ -1,5 +1,28 @@
 ActiveAdmin.register Video do
 
+  collection_action :imdb_title, method: :get do
+    if !(params[:id].blank?)
+      s = Imdb::Movie.new(params[:id])
+      if s.title.nil?
+        render json: {message: "Not Found Movie"} , status: 403
+      else
+        render json: {id: s.id, name: s.title, genres: s.genres, year: s.year, director: s.director, \
+                    link: s.url, actors: s.cast_members , imdb_rating: s.rating}, status: 200
+      end
+    elsif !(params[:search].blank?)
+      s =  Imdb::Search.new(params[:search])
+      s_len = s.movies.size
+      if s_len == 0
+        render json: {message: "Not Found Movie"}, status: 403
+      else
+        s_id_title  = s.movies.map{|m| [m.id, m.title]}
+        render json: {search: params[:search], length: s_len, id_title: s_id_title} , status: 200
+      end
+    else
+      render json: {message: "Not Found any params"}, status: 400
+    end
+  end
+
   batch_action :destroy do |selection|
     Video.find(selection).each do |video|
       video.destroy
@@ -13,7 +36,7 @@ ActiveAdmin.register Video do
 
   form do |f|
     f.inputs "Video" do
-      f.input :name
+      f.input :name, as: :select
       f.input :genre_ids, :label => "Genre", as: :select, multiple: true, :collection => Genre.all.map{ |genre| [genre.name, genre.id] }, :prompt => 'Select one'
       f.input :year, :as => :select, :collection => (1900..Time.now.year).to_a
       f.input :director_name
@@ -61,6 +84,7 @@ ActiveAdmin.register Video do
       end
     end
   end
+
 
 
   controller do

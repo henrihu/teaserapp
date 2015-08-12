@@ -86,6 +86,8 @@ GEM
       activesupport (>= 3.2, < 5)
     hike (1.2.3)
     i18n (0.6.11)
+    imdb (0.8.2)
+      nokogiri (= 1.6.2.1)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
@@ -113,9 +115,12 @@ GEM
       activesupport
       mandrill-api (~> 1.0.9)
     mime-types (1.25.1)
+    mini_portile (0.6.0)
     minitest (5.4.1)
     multi_json (1.10.1)
     netrc (0.10.2)
+    nokogiri (1.6.2.1)
+      mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyamorous (1.1.0)
@@ -216,6 +221,7 @@ DEPENDENCIES
   cloudinary
   coffee-rails (~> 4.0.0)
   devise
+  imdb
   jbuilder (~> 2.0)
   jquery-rails
   mandrill_mailer
