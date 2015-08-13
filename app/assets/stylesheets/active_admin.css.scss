@@ -10,6 +10,7 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+//@import "bootstrap.min";
 
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
@@ -18,6 +19,26 @@
 body.active_admin {
   .status_tag.blue { background: #A52A2A; }
 @import "select2";
+  .sgt_div {
+    //background-color: white;
+    bottom: auto;
+    display: block;
+    position: absolute;
+    border: 1px solid #c9d0d6;
+    border-radius: 3px;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 0.95em;
+    outline: medium none;
+    padding: 8px 10px 7px;
+    width: calc(80% - 22px);
+    //left: 330px;
+    //top: 276.317px;
+    //width: 363px;
+  }
+  #sgt_div_id > li {
+    list-style: outside none none;
+    margin-left: 10px;
+  }
 }
 
 //#titlebar_left {

@@ -18,6 +18,8 @@ ActiveAdmin.register Video do
         s_id_title  = s.movies.map{|m| [m.id, m.title]}
         render json: {search: params[:search], length: s_len, id_title: s_id_title} , status: 200
       end
+    elsif !(params[:q].blank?)
+      render json: {data: ['ads', 'asdf','asdf', 'asdf','asdf']}, status: 200
     else
       render json: {message: "Not Found any params"}, status: 400
     end
@@ -36,7 +38,7 @@ ActiveAdmin.register Video do
 
   form do |f|
     f.inputs "Video" do
-      f.input :name, as: :select
+      f.input :name# , as: :select , multiple: false
       f.input :genre_ids, :label => "Genre", as: :select, multiple: true, :collection => Genre.all.map{ |genre| [genre.name, genre.id] }, :prompt => 'Select one'
       f.input :year, :as => :select, :collection => (1900..Time.now.year).to_a
       f.input :director_name
