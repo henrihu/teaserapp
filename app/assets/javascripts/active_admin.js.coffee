@@ -78,21 +78,12 @@ add_value_component = (msg = []) ->
   add_value_year msg.year
   add_value_director msg.director
   add_value_link   msg.link
-  add_value_actors msg.actors
+  add_value_actors msg.actors.slice(0,10)
   add_value_imdb_rating msg.imdb_rating
-
-  console.log msg.id
-  console.log msg.year
-  console.log msg.name
-  console.log msg.genres
-  console.log msg.director
-  console.log msg.actors
-  console.log msg.link
-  console.log msg.imdb_rating
 
 add_value_year = (year = "") ->
   $('#video_year').val(year)
-#  $('#select2-chosen-2').text(year)
+  $('#select2-chosen-2').text(year)
   $('a.select2-choice').removeClass("select2-default")
   $('.select2-hidden-accessible:last').text(year)
 add_value_director = (director = "") ->
@@ -104,7 +95,10 @@ add_value_actors = (actors = "") ->
 add_value_imdb_rating = (imdb_rating = "") ->
   $('#video_imdb_rating').val(imdb_rating)
 add_value_genres = (genres = "") ->
-  $('#video_genre_ids').val(genres)
+  $('#video_genre_ids option').filter ->
+      genres.indexOf($(this).text()) >= 0
+    .prop('selected', true)
+  $('ul.select2-choices .select2-search-choice').remove()
   $.each(genres, (i, item) ->
     $('ul.select2-choices').prepend('<li class="select2-search-choice"><div>' + genres[i] +
         '</div><a class="select2-search-choice-close" tabindex="-1" href="#"></a></li>')
