@@ -46,7 +46,9 @@ ActiveAdmin.register Video do
       f.input :actors
       f.input :imdb_rating, as: :string, :placeholder => "Out of 10"
       f.input :rotten_tomatoes_rating, as: :string, :placeholder => "Out of 100"
+      f.input :twitter_enable, as: :boolean, :input_html => {:checked => 'checked' }, label: "Do you want to share this movie to your Twitter?"
     end
+    # f.check :twitter_share, label: "Do you want to share this movie to your twitter"
     f.actions
   end
   
@@ -91,7 +93,7 @@ ActiveAdmin.register Video do
 
   controller do
     def permitted_params 
-      params.permit video: [:name, :year, :link, :director_name, :imdb_rating, :rotten_tomatoes_rating, :actors, :genre_ids => []]
+      params.permit video: [:name, :year, :link, :director_name, :imdb_rating, :rotten_tomatoes_rating, :twitter_enable, :actors, :genre_ids => []]
     end
   end
 end  

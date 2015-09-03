@@ -12,20 +12,25 @@ class Video < ActiveRecord::Base
   has_and_belongs_to_many :genres,  :join_table => :genres_videos
 
   after_create :twitter_share
+  attr_accessor :twitter_enable
 
   private
 
     def twitter_share
-      video = Video.last
-      tweet_text = "#{video.name} now available on Teaser App. Download the app from www.teaserapp.com" +
-          ". #" + "#{video.name.gsub(/\s+/, "")} #teaserapp"
-      if tweet_text.length >=134
-        tweet_text = "#{video.name} now available on Teaser App. www.teaserapp.com" + " #" + "#{video.name.gsub(/\s+/, "")} #teaserapp"
+      if twitter_enable.to_i == 1
+        video = Video.last
+        filtered_name = video.name.gsub(/\s+/, "")
+        filtered_name = filtered_name.gsub(/\(\w+\)/,"")
+        tweet_text = "#{video.name} now available on Teaser App. Download the app from www.teaserapp.com" +
+            ". #" + "#{filtered_name} #teaserapp"
+        if tweet_text.length >=134
+          tweet_text = "#{video.name} now available on Teaser App. www.teaserapp.com" + " #" + "#{filtered_name} #teaserapp"
+        end
+        if tweet_text.length > 134
+          tweet_text = tweet_text[0..134]
+        end
+        $twitter.update tweet_text
       end
-      if tweet_text.length > 134
-        tweet_text = tweet_text[0..134]
-      end
-      $twitter.update tweet_text
     end
 
     def require_at_least_one_genre
