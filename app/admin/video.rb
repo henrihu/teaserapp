@@ -46,7 +46,7 @@ ActiveAdmin.register Video do
       f.input :actors
       f.input :imdb_rating, as: :string, :placeholder => "Out of 10"
       f.input :rotten_tomatoes_rating, as: :string, :placeholder => "Out of 100"
-      f.input :twitter_enable, as: :boolean, :input_html => {:checked => 'checked' }, label: "Do you want to share this movie to your Twitter?"
+      f.input :twitter_enable, as: :boolean,  label: "Do you want to share this movie to your Twitter?"
     end
     # f.check :twitter_share, label: "Do you want to share this movie to your twitter"
     f.actions
